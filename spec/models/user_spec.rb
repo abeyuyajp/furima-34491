@@ -55,7 +55,6 @@ RSpec.describe User, type: :model do
         @user.password = 'aaaaaa'
         @user.password_confirmation = 'aaaaaa'
         @user.valid?
-
         expect(@user.errors.full_messages).to include("パスワードは不正な値です")
       end
 
