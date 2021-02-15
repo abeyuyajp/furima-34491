@@ -7,11 +7,9 @@ RSpec.describe User, type: :model do
 
   describe 'ユーザー新規登録' do
     context '新規登録できる時' do
-      it 'passwordとpassword_confirmationが6文字以上であれば登録できる' do
-        @user.password = 'aaaaaa'
-        @user.password_confirmation = 'aaaaaa'
+      it '全ての情報があれば登録できる' do
         expect(@user).to be_valid
-        end
+      end
     end
     context '新規登録できない時' do
       it 'nicknameが空では登録できない' do
@@ -53,6 +51,14 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("パスワード（確認用）とパスワードの入力が一致しません")
       end
+      it 'passwordは半角英数字混合での入力が必須' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+
+        expect(@user.errors.full_messages).to include("パスワードは不正な値です")
+      end
+
       it 'family_nameが空では登録できない' do
         @user.family_name = ''
         @user.valid?
@@ -63,6 +69,16 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("名前を入力してください")
       end
+      it 'family_nameが全角以外では登録ができない' do
+        @user.family_name = 'a3a3a3'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("名字は不正な値です")
+      end
+      it 'first_nameが全角以外では登録ができない' do
+        @user.first_name = 'a3a3a3'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("名前は不正な値です")
+      end
       it 'family_name_kanaが空では登録できない' do
         @user.family_name_kana = ''
         @user.valid?
@@ -72,6 +88,16 @@ RSpec.describe User, type: :model do
         @user.first_name_kana = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("名前（カタカナ）を入力してください")
+      end
+      it 'family_name_kanaがカタカナ以外では登録できない' do
+        @user.family_name_kana = 'かた'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("名字（カタカナ）は不正な値です")
+      end
+      it 'first_name_kanaがカタカナ以外では登録できない' do
+        @user.first_name_kana = 'かな'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("名前（カタカナ）は不正な値です")
       end
       it 'birth_dayが空では登録できない' do
         @user.birth_day = ''
