@@ -63,12 +63,12 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include("Priceは数値で入力してください")
         end
         it '販売価格は300円以上でなければ出品できない' do
-          @item.price = '100'
+          @item.price = 100
           @item.valid?
           expect(@item.errors.full_messages).to include("Priceは300以上の値にしてください")
         end
         it '販売価格は9,999,999円以上でなければ出品できない' do
-          @item.price = '100000000'
+          @item.price = 100000000
           @item.valid?
           expect(@item.errors.full_messages).to include("Priceは9999999以下の値にしてください")
         end
