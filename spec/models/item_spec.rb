@@ -28,29 +28,29 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include("Textを入力してください")
         end
         it 'カテゴリーの情報が空では出品できない' do
-          @item.category_id =""
+          @item.category_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Categoryを入力してください")
+          expect(@item.errors.full_messages).to include("Categoryは1以外の値にしてください")
         end
         it '商品の状態についての情報が空では出品できない' do
-          @item.condition_id =""
+          @item.condition_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Conditionを入力してください")
+          expect(@item.errors.full_messages).to include("Conditionは1以外の値にしてください")
         end
         it '配送料の負担についての情報が空では出品できない' do
-          @item.delivery_fee_id =""
+          @item.delivery_fee_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Delivery feeを入力してください")
+          expect(@item.errors.full_messages).to include("Delivery feeは1以外の値にしてください")
         end
         it '発送元の地域についての情報が空では出品できない' do
-          @item.prefecture_id =""
+          @item.prefecture_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Prefectureを入力してください")
+          expect(@item.errors.full_messages).to include("Prefectureは1以外の値にしてください")
         end
         it '発送までの日数についての情報が空では出品できない' do
-          @item.shipping_day_id =""
+          @item.shipping_day_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping dayを入力してください")
+          expect(@item.errors.full_messages).to include("Shipping dayは1以外の値にしてください")
         end
         it '販売価格についての情報が空では出品できない' do
           @item.price =""
