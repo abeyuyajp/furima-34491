@@ -5,12 +5,12 @@ class PurchaseDeliveryAddress
 
   with_options presence: true do
     validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
-    validates :prefecture_id
     validates :city
     validates :house_number
-    validates :phone_number#, format: {with: /^\d{11}$/}
+    validates :phone_number, length:{maximum:11}, format:{with: /\A[0-9]\d+\z/}
     validates :user_id
   end
+  validates :prefecture_id, numericality: { other_than: 1 }
 
   def save
     purchase = Purchase.create(user_id: user_id, item_id: item_id)
