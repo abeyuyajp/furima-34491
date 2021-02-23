@@ -6,5 +6,6 @@ FactoryBot.define do
     house_number { '1-2-3' }
     building_name { '東京ハイツ' }
     phone_number { '09012345678' }
+    token { 'tok_abcdefghijk000000000000' }
   end
 end

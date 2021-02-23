@@ -69,6 +69,11 @@ RSpec.describe PurchaseDeliveryAddress, type: :model do
         @purchase_delivery_address.valid?
         expect(@purchase_delivery_address.errors.full_messages).to include("Phone numberは不正な値です")
       end
+      it 'tokenが空だと保存できない' do
+        @purchase_delivery_address.token = ''
+        @purchase_delivery_address.valid?
+        expect(@purchase_delivery_address.errors.full_messages).to include("Tokenを入力してください")
+      end
     end
   end
 end
