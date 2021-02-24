@@ -27,7 +27,7 @@ class PurchasesController < ApplicationController
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
-        amount: Item.find(params[:item_id]).price,
+        amount: @purchase.price,
         card: purchase_params[:token],
         currency: 'jpy'
       )
@@ -38,15 +38,13 @@ class PurchasesController < ApplicationController
   end
 
   def not_purchase
-    purchase = Item.find(params[:item_id])
-    if user_signed_in? && current_user.id == purchase.user_id
+    if user_signed_in? && current_user.id == @purchase.user_id
       redirect_to root_path
     end
   end
 
   def present_purchase
-    purchase = Item.find(params[:item_id])
-    if user_signed_in? && purchase.purchase.present?
+    if user_signed_in? && @purchase.purchase.present?
       redirect_to root_path
     end
   end
