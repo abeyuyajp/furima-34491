@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :edit_item, only: [:edit, :update]
+  before_action :edit_purchase_item, only: :edit
 
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -50,6 +51,12 @@ class ItemsController < ApplicationController
 
   def edit_item
     unless  user_signed_in? && current_user.id == @item.user_id
+      redirect_to root_path
+    end
+  end
+
+  def edit_purchase_item
+    if @item.purchase.present?
       redirect_to root_path
     end
   end
