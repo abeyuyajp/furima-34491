@@ -69,10 +69,25 @@ RSpec.describe PurchaseDeliveryAddress, type: :model do
         @purchase_delivery_address.valid?
         expect(@purchase_delivery_address.errors.full_messages).to include("Phone numberは不正な値です")
       end
+      it 'phone_numberは英数混合では保存できない' do
+        @purchase_delivery_address.phone_number = 'a090123456b'
+        @purchase_delivery_address.valid?
+        expect(@purchase_delivery_address.errors.full_messages).to include("Phone numberは不正な値です")
+      end
       it 'tokenが空だと保存できない' do
         @purchase_delivery_address.token = ''
         @purchase_delivery_address.valid?
         expect(@purchase_delivery_address.errors.full_messages).to include("Tokenを入力してください")
+      end
+      it 'user_idが空だと保存できない' do
+        @purchase_delivery_address.user_id = ''
+        @purchase_delivery_address.valid?
+        expect(@purchase_delivery_address.errors.full_messages).to include("Userを入力してください")
+      end
+      it 'item_idが空だと保存できない' do
+        @purchase_delivery_address.item_id = ''
+        @purchase_delivery_address.valid?
+        expect(@purchase_delivery_address.errors.full_messages).to include("Itemを入力してください")
       end
     end
   end

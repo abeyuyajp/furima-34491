@@ -1,7 +1,8 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_purchase, only: [:index, :create]
-  before_action :not_purchase, only: [:index]
+  before_action :not_purchase, only: :index
+  before_action :present_purchase, only: :index
 
   def index
     @purchase_delivery_address = PurchaseDeliveryAddress.new
@@ -42,4 +43,12 @@ class PurchasesController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def present_purchase
+    purchase = Item.find(params[:item_id])
+    if user_signed_in? && purchase.purchase.present?
+      redirect_to root_path
+    end
+  end
+
 end

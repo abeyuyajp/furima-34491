@@ -9,6 +9,7 @@ class PurchaseDeliveryAddress
     validates :house_number
     validates :phone_number, length:{maximum:11}, format:{with: /\A[0-9]\d+\z/}
     validates :user_id
+    validates :item_id
     validates :token
   end
   validates :prefecture_id, numericality: { other_than: 1 }
